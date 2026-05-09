@@ -1,10 +1,11 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import Navbar from "../components/common/Navbar";
+import Sidebar from "../components/common/Sidebar";
 
 const AdminRoute = ({ children }) => {
   const { token, user, loading } = useAuth();
 
-  // Wait for auth state to resolve first
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
@@ -17,7 +18,15 @@ const AdminRoute = ({ children }) => {
     return <Navigate to="/dashboard" />;
   }
 
-  return children;
+  return (
+    <>
+      <Navbar />
+      <div className="app-layout">
+        <Sidebar />
+        <main className="main-content">{children}</main>
+      </div>
+    </>
+  );
 };
 
 export default AdminRoute;

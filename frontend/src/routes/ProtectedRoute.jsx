@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import Navbar from "../components/common/Navbar";
+import Sidebar from "../components/common/Sidebar";
 
 const ProtectedRoute = ({ children }) => {
   const { token, loading } = useAuth();
 
-  // Wait until auth state is resolved before redirecting
-  // (prevents flash redirect on page refresh)
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
@@ -14,7 +14,15 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  return children;
+  return (
+    <>
+      <Navbar />
+      <div className="app-layout">
+        <Sidebar />
+        <main className="main-content">{children}</main>
+      </div>
+    </>
+  );
 };
 
 export default ProtectedRoute;
