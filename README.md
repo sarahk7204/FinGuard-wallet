@@ -1,622 +1,310 @@
-\# 💳 FinGuard — Wallet \& Expense Management System
-
-
+# 💳 FinGuard — Wallet & Expense Management System
 
 > A full-stack MERN application for managing personal wallets, tracking transactions, monitoring budgets, and detecting suspicious financial activity. Built as a 6th-semester Web Engineering project at FAST University Islamabad.
 
+---
 
-
-\---
-
-
-
-\# 🚀 Live Demo
-
-
+# 🚀 Live Demo
 
 | Service                  | Link                                                                                                |
-
 | ------------------------ | --------------------------------------------------------------------------------------------------- |
-
-| \*\*Frontend (Vercel)\*\*    | \[fin-guard-wallet.vercel.app](https://fin-guard-wallet.vercel.app?utm\_source=chatgpt.com)           |
-
-| \*\*Backend API (Render)\*\* | \[finguard-wallet.onrender.com/api](https://finguard-wallet.onrender.com/api?utm\_source=chatgpt.com) |
-
-| \*\*Health Check\*\*         | \[/api/health](https://finguard-wallet.onrender.com/api/health?utm\_source=chatgpt.com)               |
-
-| \*\*GitHub Repository\*\*    | \[FinGuard-wallet Repository](https://github.com/sarahk7204/FinGuard-wallet?utm\_source=chatgpt.com)  |
-
-
+| **Frontend (Vercel)**    | [fin-guard-wallet.vercel.app](https://fin-guard-wallet.vercel.app?utm_source=chatgpt.com)           |
+| **Backend API (Render)** | [finguard-wallet.onrender.com/api](https://finguard-wallet.onrender.com/api?utm_source=chatgpt.com) |
+| **Health Check**         | [/api/health](https://finguard-wallet.onrender.com/api/health?utm_source=chatgpt.com)               |
+| **GitHub Repository**    | [FinGuard-wallet Repository](https://github.com/sarahk7204/FinGuard-wallet?utm_source=chatgpt.com)  |
 
 > ⚠️ The backend is hosted on Render's free tier and sleeps after 15 minutes of inactivity.
+> The first request after a sleep takes **30–60 seconds** to wake up.
 
-> The first request after a sleep takes \*\*30–60 seconds\*\* to wake up.
+---
 
+# ✨ Features
 
+## 👤 User Features
 
-\---
+* Register, login, and JWT-based authentication
+* Personal wallet with deposit, withdraw, and transfer
+* Transaction history with filtering and downloadable receipts
+* Expense tracking with category breakdown
+* Budget creation with progress tracking and warnings when nearing/exceeding limits
+* Spending reports and analytics
+* Notifications for important account events
+* Profile management and password change
 
+---
 
+## 🛡️ Admin Features
 
-\# ✨ Features
+* Admin dashboard with platform-wide statistics
+* View, block, and manage all users
+* View and freeze user wallets
+* View all platform transactions
+* Review flagged/suspicious transactions
+* Manage transaction categories
+* Generate platform-level reports
 
+---
 
-
-\## 👤 User Features
-
-
-
-\* Register, login, and JWT-based authentication
-
-\* Personal wallet with deposit, withdraw, and transfer
-
-\* Transaction history with filtering and downloadable receipts
-
-\* Expense tracking with category breakdown
-
-\* Budget creation with progress tracking and warnings when nearing/exceeding limits
-
-\* Spending reports and analytics
-
-\* Notifications for important account events
-
-\* Profile management and password change
-
-
-
-\---
-
-
-
-\## 🛡️ Admin Features
-
-
-
-\* Admin dashboard with platform-wide statistics
-
-\* View, block, and manage all users
-
-\* View and freeze user wallets
-
-\* View all platform transactions
-
-\* Review flagged/suspicious transactions
-
-\* Manage transaction categories
-
-\* Generate platform-level reports
-
-
-
-\---
-
-
-
-\# 🚨 Suspicious Transaction Detection
-
-
+# 🚨 Suspicious Transaction Detection
 
 The system automatically flags transactions matching any of these rules:
 
+* Large transfer above a configured threshold
+* Multiple rapid transfers in a short time window
+* Repeated transfers of the same exact amount
+* Transfers from a newly created account
+* Withdrawal that empties most of the wallet balance
 
+---
 
-\* Large transfer above a configured threshold
-
-\* Multiple rapid transfers in a short time window
-
-\* Repeated transfers of the same exact amount
-
-\* Transfers from a newly created account
-
-\* Withdrawal that empties most of the wallet balance
-
-
-
-\---
-
-
-
-\# 🧰 Tech Stack
-
-
+# 🧰 Tech Stack
 
 | Category           | Technologies                                                |
-
 | ------------------ | ----------------------------------------------------------- |
+| **Frontend**       | React 18, React Router, Vite, Context API, Axios, plain CSS |
+| **Backend**        | Node.js, Express, Mongoose ODM                              |
+| **Database**       | MongoDB Atlas (cloud)                                       |
+| **Authentication** | JWT (JSON Web Tokens) + bcrypt password hashing             |
+| **Deployment**     | Vercel (frontend), Render (backend), MongoDB Atlas (DB)     |
 
-| \*\*Frontend\*\*       | React 18, React Router, Vite, Context API, Axios, plain CSS |
+---
 
-| \*\*Backend\*\*        | Node.js, Express, Mongoose ODM                              |
-
-| \*\*Database\*\*       | MongoDB Atlas (cloud)                                       |
-
-| \*\*Authentication\*\* | JWT (JSON Web Tokens) + bcrypt password hashing             |
-
-| \*\*Deployment\*\*     | Vercel (frontend), Render (backend), MongoDB Atlas (DB)     |
-
-
-
-\---
-
-
-
-\# 📁 Project Structure
-
-
+# 📁 Project Structure
 
 ```bash
-
 fintech-wallet-system/
-
 ├── backend/
-
 │   ├── config/          # Database connection
-
 │   ├── controllers/     # Route handlers (auth, wallet, transactions, admin, etc.)
-
 │   ├── middleware/      # Auth middleware, error handler
-
 │   ├── models/          # Mongoose schemas (User, Wallet, Transaction, Budget, etc.)
-
 │   ├── routes/          # Express route definitions
-
 │   ├── seed/            # Admin seeder script
-
 │   ├── utils/           # Helper utilities (token generation, suspicious rules, etc.)
-
 │   ├── app.js           # Express app + middleware setup
-
 │   └── server.js        # Entry point + DB connection
-
 └── frontend/
-
-&#x20;   ├── src/
-
-&#x20;   │   ├── components/  # Reusable UI (Navbar, Sidebar, Modal, etc.)
-
-&#x20;   │   ├── context/     # AuthContext
-
-&#x20;   │   ├── hooks/       # Custom hooks (useAuth)
-
-&#x20;   │   ├── pages/       # Route pages (user/, admin/, auth/)
-
-&#x20;   │   ├── routes/      # AppRoutes, ProtectedRoute, AdminRoute
-
-&#x20;   │   ├── services/    # API client modules
-
-&#x20;   │   ├── styles/      # global.css
-
-&#x20;   │   ├── App.jsx
-
-&#x20;   │   └── main.jsx
-
-&#x20;   ├── index.html
-
-&#x20;   └── vite.config.js
-
+    ├── src/
+    │   ├── components/  # Reusable UI (Navbar, Sidebar, Modal, etc.)
+    │   ├── context/     # AuthContext
+    │   ├── hooks/       # Custom hooks (useAuth)
+    │   ├── pages/       # Route pages (user/, admin/, auth/)
+    │   ├── routes/      # AppRoutes, ProtectedRoute, AdminRoute
+    │   ├── services/    # API client modules
+    │   ├── styles/      # global.css
+    │   ├── App.jsx
+    │   └── main.jsx
+    ├── index.html
+    └── vite.config.js
 ```
 
+---
 
+# ⚙️ Getting Started Locally
 
-\---
+## 📋 Prerequisites
 
+* Node.js v18 or higher ([Download Node.js](https://nodejs.org?utm_source=chatgpt.com))
+* npm (comes with Node.js)
+* A MongoDB Atlas account ([MongoDB Atlas Free Signup](https://www.mongodb.com/atlas?utm_source=chatgpt.com))
+* Git
 
+---
 
-\# ⚙️ Getting Started Locally
-
-
-
-\## 📋 Prerequisites
-
-
-
-\* Node.js v18 or higher (\[Download Node.js](https://nodejs.org?utm\_source=chatgpt.com))
-
-\* npm (comes with Node.js)
-
-\* A MongoDB Atlas account (\[MongoDB Atlas Free Signup](https://www.mongodb.com/atlas?utm\_source=chatgpt.com))
-
-\* Git
-
-
-
-\---
-
-
-
-\# 1️⃣ Clone the Repository
-
-
+# 1️⃣ Clone the Repository
 
 ```bash
-
 git clone https://github.com/sarahk7204/FinGuard-wallet.git
-
 cd FinGuard-wallet
-
 ```
 
+---
 
-
-\---
-
-
-
-\# 2️⃣ Backend Setup
-
-
+# 2️⃣ Backend Setup
 
 ```bash
-
 cd backend
-
 npm install
-
 ```
-
-
 
 Create a `.env` file in `backend/` with the following keys
-
-(\*\*do not share or commit this file\*\*):
-
-
+(**do not share or commit this file**):
 
 ```env
-
 PORT=5000
-
-MONGO\_URI=<your MongoDB Atlas connection string>
-
-JWT\_SECRET=<any long random string, at least 32 characters>
-
-FRONTEND\_URL=http://localhost:5173
-
-NODE\_ENV=development
-
+MONGO_URI=<your MongoDB Atlas connection string>
+JWT_SECRET=<any long random string, at least 32 characters>
+FRONTEND_URL=http://localhost:5173
+NODE_ENV=development
 ```
 
-
-
-\### Seed the Admin Account (run only once)
-
-
+### Seed the Admin Account (run only once)
 
 ```bash
-
 node seed/adminSeeder.js
-
 ```
 
+### Default Admin Credentials
 
+*(change immediately after first login)*
 
-\### Default Admin Credentials
+* Email: `admin@finguard.com`
+* Password: `Admin@123`
 
-
-
-\*(change immediately after first login)\*
-
-
-
-\* Email: `admin@finguard.com`
-
-\* Password: `Admin@123`
-
-
-
-\### Start the Backend
-
-
+### Start the Backend
 
 ```bash
-
 npm start
-
 ```
-
-
 
 The API will run at:
 
-
-
 ```bash
-
 http://localhost:5000
-
 ```
-
-
 
 Verify with:
 
-
-
 ```bash
-
 GET http://localhost:5000/api/health
-
 ```
 
+---
 
-
-\---
-
-
-
-\# 3️⃣ Frontend Setup
-
-
+# 3️⃣ Frontend Setup
 
 In a new terminal:
 
-
-
 ```bash
-
 cd frontend
-
 npm install
-
 ```
-
-
 
 Create a `.env` file in `frontend/`:
 
-
-
 ```env
-
-VITE\_API\_URL=http://localhost:5000/api
-
+VITE_API_URL=http://localhost:5000/api
 ```
 
-
-
-\### Start the Frontend
-
-
+### Start the Frontend
 
 ```bash
-
 npm run dev
-
 ```
-
-
 
 Open:
 
-
-
 ```bash
-
 http://localhost:5173
-
 ```
-
-
 
 in your browser.
 
+---
 
+# 🔐 Environment Variables Reference
 
-\---
-
-
-
-\# 🔐 Environment Variables Reference
-
-
-
-\## Backend (`backend/.env`)
-
-
+## Backend (`backend/.env`)
 
 | Key            | Description                                     |
-
 | -------------- | ----------------------------------------------- |
-
 | `PORT`         | Port the Express server listens on (e.g., 5000) |
+| `MONGO_URI`    | MongoDB connection string from Atlas            |
+| `JWT_SECRET`   | Secret used to sign JSON Web Tokens             |
+| `FRONTEND_URL` | URL of the frontend, used for CORS allowlist    |
+| `NODE_ENV`     | `development` locally, `production` on Render   |
 
-| `MONGO\_URI`    | MongoDB connection string from Atlas            |
+---
 
-| `JWT\_SECRET`   | Secret used to sign JSON Web Tokens             |
-
-| `FRONTEND\_URL` | URL of the frontend, used for CORS allowlist    |
-
-| `NODE\_ENV`     | `development` locally, `production` on Render   |
-
-
-
-\---
-
-
-
-\## Frontend (`frontend/.env`)
-
-
+## Frontend (`frontend/.env`)
 
 | Key            | Description                                       |
-
 | -------------- | ------------------------------------------------- |
+| `VITE_API_URL` | Base URL of the backend API (must include `/api`) |
 
-| `VITE\_API\_URL` | Base URL of the backend API (must include `/api`) |
+> Vite only exposes env variables prefixed with `VITE_` to the browser.
 
+---
 
+# ☁️ Deployment
 
-> Vite only exposes env variables prefixed with `VITE\_` to the browser.
+### Backend (Render)
 
+* Auto-deploys from the `main` branch
+* Root directory: `backend`
+* Environment variables:
 
-
-\---
-
-
-
-\# ☁️ Deployment
-
-
-
-\### Backend (Render)
-
-
-
-\* Auto-deploys from the `main` branch
-
-\* Root directory: `backend`
-
-\* Environment variables:
-
-
-
-&#x20; \* `MONGO\_URI`
-
-&#x20; \* `JWT\_SECRET`
-
-&#x20; \* `FRONTEND\_URL`
-
-&#x20; \* `NODE\_ENV`
-
-
+  * `MONGO_URI`
+  * `JWT_SECRET`
+  * `FRONTEND_URL`
+  * `NODE_ENV`
 
 configured in the Render dashboard.
 
+---
 
+### Frontend (Vercel)
 
-\---
+* Auto-deploys from the `main` branch
+* Root directory: `frontend`
+* Framework preset: Vite
+* `VITE_API_URL` is configured in the Vercel dashboard
+* SPA rewrites are configured in `frontend/vercel.json`
 
+---
 
+### Database (MongoDB Atlas)
 
-\### Frontend (Vercel)
+* Free M0 cluster
+* Network access is open to `0.0.0.0/0` so Render can connect
 
+---
 
-
-\* Auto-deploys from the `main` branch
-
-\* Root directory: `frontend`
-
-\* Framework preset: Vite
-
-\* `VITE\_API\_URL` is configured in the Vercel dashboard
-
-\* SPA rewrites are configured in `frontend/vercel.json`
-
-
-
-\---
-
-
-
-\### Database (MongoDB Atlas)
-
-
-
-\* Free M0 cluster
-
-\* Network access is open to `0.0.0.0/0` so Render can connect
-
-
-
-\---
-
-
-
-\# 🔌 API Overview
-
-
+# 🔌 API Overview
 
 All endpoints are prefixed with `/api`.
 
-
-
 | Module            | Sample Endpoints                                                                                              |
-
 | ----------------- | ------------------------------------------------------------------------------------------------------------- |
-
-| \*\*Auth\*\*          | `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `PUT /auth/change-password`                        |
-
-| \*\*Wallet\*\*        | `GET /wallet`, `POST /wallet/deposit`, `POST /wallet/withdraw`, `POST /wallet/transfer`                       |
-
-| \*\*Transactions\*\*  | `GET /transactions`, `GET /transactions/:id`, `GET /transactions/:id/receipt`                                 |
-
-| \*\*Budgets\*\*       | `GET /budgets`, `POST /budgets`, `PUT /budgets/:id`, `DELETE /budgets/:id`                                    |
-
-| \*\*Notifications\*\* | `GET /notifications`, `PATCH /notifications/:id/read`                                                         |
-
-| \*\*Admin\*\*         | `GET /admin/dashboard`, `GET /admin/users`, `PATCH /admin/users/:id/block`, `GET /admin/transactions/flagged` |
-
-
+| **Auth**          | `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `PUT /auth/change-password`                        |
+| **Wallet**        | `GET /wallet`, `POST /wallet/deposit`, `POST /wallet/withdraw`, `POST /wallet/transfer`                       |
+| **Transactions**  | `GET /transactions`, `GET /transactions/:id`, `GET /transactions/:id/receipt`                                 |
+| **Budgets**       | `GET /budgets`, `POST /budgets`, `PUT /budgets/:id`, `DELETE /budgets/:id`                                    |
+| **Notifications** | `GET /notifications`, `PATCH /notifications/:id/read`                                                         |
+| **Admin**         | `GET /admin/dashboard`, `GET /admin/users`, `PATCH /admin/users/:id/block`, `GET /admin/transactions/flagged` |
 
 A full Postman collection with example requests and responses is included in:
 
-
-
 ```bash
-
-/docs/FinGuard.postman\_collection.json
-
+/docs/FinGuard.postman_collection.json
 ```
-
-
 
 (or attached separately with the submission).
 
+---
 
+# 🧪 Postman Testing
 
-\---
+The project was tested with **25+ Postman test cases** covering both success and failure scenarios across all modules:
 
-
-
-\# 🧪 Postman Testing
-
-
-
-The project was tested with \*\*25+ Postman test cases\*\* covering both success and failure scenarios across all modules:
-
-
-
-\* Auth
-
-\* Wallet
-
-\* Transactions
-
-\* Admin
-
-
+* Auth
+* Wallet
+* Transactions
+* Admin
 
 Both local and deployed (Render) endpoints were tested. Screenshots are included in the submission.
 
+---
 
+# 👨‍💻 Author
 
-\---
-
-
-
-\# 👨‍💻 Author
-
-
-
-\*\*Sara Hashim, Maha Faisal, Amna Arshad, and Shaheer Ahmed\*\*
-
+**Sara Hashim, Maha Faisal, Amna Arshad, and Shaheer Ahmed**
 FAST University Islamabad — BS Computer Science, 6th Semester
 
+**Course:** Web Engineering
 
+---
 
-\*\*Course:\*\* Web Engineering
-
-
-
-\---
-
-
-
-\# 📜 License
-
-
+# 📜 License
 
 This project was built for academic purposes.
-
-
-
